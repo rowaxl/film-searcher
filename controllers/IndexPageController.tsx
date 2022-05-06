@@ -6,7 +6,7 @@ import IndexPageLayout from "../layouts/IndexPageLayout";
 
 const IndexPageController = () => {
   const [query, setQuery] = useState('');
-  const [target, setTarget] = useState<FilmDetail>();
+  const [target, setTarget] = useState('');
   const {
     films,
     isLoading: isSearching,
@@ -17,7 +17,7 @@ const IndexPageController = () => {
     filmDetails,
     isLoading: isGettingDetails,
     error: getError
-  } = useGetFilmDetails(target?.id);
+  } = useGetFilmDetails(target);
 
   const handleOnChangeQuery = (inputValue: string) => {
     console.log('handleOnChangeQuery')
@@ -28,12 +28,18 @@ const IndexPageController = () => {
     setQuery(inputValue);
   }
 
+  const handleOnClickCard = (id: string) => { 
+    setTarget(id);
+  }
+
   return (
     <IndexPageLayout
       onSubmit={handleOnSubmitQuery}
       onChange={handleOnChangeQuery}
+      onClickCard={handleOnClickCard}
       searchedFilms={films?.results}
       filmDetails={filmDetails}
+      isLoading={isSearching || isGettingDetails}
     />
   )
 }

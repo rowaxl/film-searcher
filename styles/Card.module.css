@@ -1,5 +1,4 @@
-
-.card-flex {
+.card {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -14,7 +13,7 @@
 	width: 100%;
 }
 
-.card-flex-item {
+.cardItem {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -23,7 +22,8 @@
 	width: 100%;
 	padding-right: 0;
 }
-.card-flex-wrapper {
+
+.cardWrapper {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -38,10 +38,12 @@
   margin-right: 0;
   padding: 1em;
 }
-.card-flex-image img {
+
+.cardImage img {
 	opacity: 1;
 }
-.card-flex-button {
+
+.cardButton {
 	background-color: #EEE;
 	border: 1px solid #333; 
 	padding: 0.5rem;
@@ -50,37 +52,37 @@
 	text-decoration: none; 
 }
 
-.card-flex-button:hover {
+.cardButton:hover {
 	color: #333;
 	text-decoration: none; 
 }
 
-.btn-block {
-  display: block;
-  width: 100%;
-}
-
 @media (min-width: 768px) {
-	.card-flex-item {
+	.cardItem {
 		width: 33.33%;
 		padding-right: 1em; 
-	} 
-	.card-flex-item:nth-child(3n) {
+	}
+
+	.cardItem:nth-child(3n) {
 		padding-right: 0;
-	} 
-	.card-flex-image img {
+	}
+
+	.cardImage img {
 		opacity: 0.8; 
 	}
-	.card-flex-wrapper:hover {
+
+	.cardWrapper:hover {
 		cursor: pointer;
 		background-color: white;
 		box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
 	}
-	.card-flex-wrapper:hover .card-flex-image img {
+
+	.cardWrapper:hover .cardImage img {
 		opacity: 1;
 		transition: opacity 0.5s cubic-bezier(.43,.41,.22,.91);
 	}
-	.card-flex-wrapper:hover .card-flex-button {
-		background-color: #FFFFCC; 
+
+	.cardWrapper:hover .cardButton {
+		background-color: #DDD; 
 	}
 }
