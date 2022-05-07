@@ -5,7 +5,7 @@ import useSearchFilms from "../hooks/useSearchFilm";
 import { FilmDetail } from "../interfaces";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleFav, selectFavs } from "../store/reducers/favs";
-import useGetFilms from "../hooks/usegetFilms";
+import useGetFilms from "../hooks/useGetFilms";
 
 const IndexPageController = () => {
   const [query, setQuery] = useState('');
