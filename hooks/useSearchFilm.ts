@@ -7,7 +7,7 @@ const useSearchFilms = (query?: string) => {
   const { data: films, error } = useSWR<SearchFilmResponse>(`${API_URL_SEARCH_FILM}${query}`, fetcher);
 
   return {
-    films,
+    films: films?.results,
     isLoading: !films && !error,
     error,
   }

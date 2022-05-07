@@ -1,16 +1,20 @@
 export interface FilmDetail {
   id: string
-  name: string
-  posterPath: string
+  title: string
+  original_title: string
+  poster_path: string
+  backdrop_path: string
   overview: string
   popularity: string
-  votesAvg: number
-  votesCount: number
+  release_date: string
+  vote_average: number
+  vote_count: number
   isFaved?: boolean
 }
 
 export interface SearchFilmResponse {
-  results: FilmDetail[]
+  results?: FilmDetail[]
+  errors: string[]
 }
 
 export interface FavedFilm {

@@ -1,16 +1,14 @@
-import { useState } from 'react';
-import Head from 'next/head';
+import { useCallback, useState, useMemo } from 'react';
 import Image from 'next/image';
 import Dialog from '../components/Dialog';
 import SearchForm from '../components/SearchForm';
 import FilmCard from '../components/FilmCard';
 import { FilmDetail } from '../interfaces';
-import styles from '../styles/Home.module.css';
 import Overlay from '../components/Spinner';
+import PageHeader from '../components/Header';
 
 interface IndexPageLayoutProps {
   onSubmit: (query: string) => void
-  onChange: (query: string) => void
   onClickCard: (id: string) => void
   isLoading: boolean
   searchedFilms?: FilmDetail[]
@@ -19,52 +17,47 @@ interface IndexPageLayoutProps {
 
 const IndexPageLayout = ({
   onSubmit,
-  onChange,
   onClickCard,
   isLoading,
   searchedFilms,
   filmDetails,
 }: IndexPageLayoutProps) => {
   const [isFilmDetailOpen, setIsFilmDetailOpen] = useState(false);
-
-  const handleOnChange = (query: string) => {
-    console.log('handleOnChange')
-    onChange(query);
-  }
+  const [, updateState] = useState<{}>()
+  const forceUpdate = useCallback(() => updateState({}), [])
 
   const handleOnClickCard = (id: string) => {
     onClickCard(id);
     setIsFilmDetailOpen(true);
   }
 
+  const searchedFilmMemo = useMemo(() => {
+    if (!searchedFilms) return <></>;
+
+    return searchedFilms.map(film => (
+      <FilmCard
+        key={film.id}
+        detail={film}
+        isButton={true}
+        onClick={handleOnClickCard}
+      />
+    ))
+  }, [searchedFilms]);
+
   return (
-    <div className={styles.containers}>
-      <Head>
-        <title>Film Searcher</title>
-      </Head>
+    <div className="min-vh-100">
+      <PageHeader />
 
-      <main>
-        <div>
-          <SearchForm
-            onSubmit={onSubmit}
-            onChange={handleOnChange}
-          />
+      <main id="react-modal" className="container">
+        <div className="mt-4">
+          <SearchForm onSubmit={onSubmit} />
         </div>
 
-        <div>
-          {searchedFilms && searchedFilms.map(film => (
-            <FilmCard
-              key={film.id}
-              detail={film}
-              isButton={true}
-              onClick={handleOnClickCard}
-            />
-          )) }
+        <div className="list-group overflow-scroll">
+          {searchedFilmMemo}
         </div>
 
-        <Dialog
-          isOpen={isFilmDetailOpen}
-        >
+        <Dialog isOpen={isFilmDetailOpen}>
           <FilmCard
             detail={filmDetails}
             isButton={false}
@@ -79,10 +72,6 @@ const IndexPageLayout = ({
 
         <Overlay isShown={isLoading}/>
       </main>
-
-      <footer>
-        Powered by TMDB <Image src="TMDB_logo2-01.png" alt="TMDB_logo" className="tmdb_logo" />
-      </footer>
     </div>
   )
 }
