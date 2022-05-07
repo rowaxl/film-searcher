@@ -5,10 +5,11 @@ import Poster from './Poster';
 interface FilmCardProps {
   isButton: boolean
   detail?: FilmDetail
-  onClick?: (id: string) => void
+  onClick?: (id: number) => void
+  onClickFavButton: (id: number) => void
 }
 
-const FilmCard = ({ isButton, detail, onClick }: FilmCardProps) => {
+const FilmCard = ({ isButton, detail, onClick, onClickFavButton }: FilmCardProps) => {
   const handleOnClick = () => {
     if (onClick && detail) onClick(detail.id);
   }
@@ -30,22 +31,22 @@ const FilmCard = ({ isButton, detail, onClick }: FilmCardProps) => {
                 ({detail.release_date.slice(0, 4)})
               </span>
             </h3>
+
+            <FavButton id={detail.id} isFaved={detail.isFaved} onClick={onClickFavButton} />
           </div>
         </div>
       )
     }
 
     return (
-      <div className="card row no-gutters py-2">
+      <div className="card row no-gutters py-2 position-relative">
         <div className="col-lg-5 col-12 card-img">
           <Poster src={detail.poster_path} />
         </div>
 
         <div className="col-sm-7 w-100">
-          <h4 className="card-title mr-4 position-relative">
+          <h4 className="card-title mr-4">
             {detail.original_title}
-
-            <FavButton id={detail.id} />
           </h4>
 
           <p className="h6">
@@ -56,6 +57,8 @@ const FilmCard = ({ isButton, detail, onClick }: FilmCardProps) => {
 
           <p>{detail.overview}</p>
         </div>
+
+        <FavButton id={detail.id} isFaved={detail.isFaved} onClick={onClickFavButton} />
       </div>
     )
   }

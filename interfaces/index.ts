@@ -1,5 +1,5 @@
 export interface FilmDetail {
-  id: string
+  id: number
   title: string
   original_title: string
   poster_path: string

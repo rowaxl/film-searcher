@@ -1,22 +1,15 @@
-import { memo, useState } from 'react';
-import { addFavedFilm, removeFavedFilm, isFavedFilm } from '../libs/favedList';
+import { memo } from 'react';
 import styles from '../styles/FavButton.module.css';
 
 interface FavButtonProps {
-  id: string
+  id: number
+  isFaved: boolean | undefined
+  onClick: (id: number) => void
 }
 
-const FavButton = ({ id }: FavButtonProps) => {
-  const [isFaved, setIsFaved] = useState(isFavedFilm(id));
-
+const FavButton = ({ id, onClick, isFaved }: FavButtonProps) => {
   const handleClickFavButton = () => {
-    if (!isFaved) {
-      addFavedFilm(id);
-      setIsFaved(true);
-    } else {
-      removeFavedFilm(id);
-      setIsFaved(false);
-    }
+    onClick(id);
   }
 
   return (
